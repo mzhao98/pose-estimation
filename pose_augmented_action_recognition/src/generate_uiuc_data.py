@@ -1,5 +1,81 @@
 from dependencies import *
 
+
+
+def load_train_data_no_pose():
+
+	index_to_label = {
+	    0: 'rowing',
+	    1: 'badminton',
+	    2: 'polo',
+	    3: 'bocce',
+	    4: 'snowboarding',
+	    5: 'croquet',
+	    6: 'sailing',
+	    7: 'rockclimbing',
+	}
+	label_to_index = {v: k for k, v in index_to_label.items()}
+	images_path = os.path.join('../data/')
+	image_files = [f for f in listdir(images_path) if isfile(join(images_path, f))]
+
+	image_dict = {}
+	label_dict = {}
+
+	index = 0
+	for i in range(len(image_files)-100):
+	# for i in range(100):
+	    im = image_files[i]
+	    if 'Thumb' in im or '.DS' in im:
+	        continue
+	    if 'rar' in im:
+	        continue
+	#     print(im)
+	    label_str = im.split('_')[2].lower()
+	    image_dict[index] = im
+	    label_dict[index] = label_to_index[label_str]
+	    index += 1
+
+	return label_dict, image_dict
+
+
+
+def load_test_data_no_pose():
+
+	index_to_label = {
+	    0: 'rowing',
+	    1: 'badminton',
+	    2: 'polo',
+	    3: 'bocce',
+	    4: 'snowboarding',
+	    5: 'croquet',
+	    6: 'sailing',
+	    7: 'rockclimbing',
+	}
+	label_to_index = {v: k for k, v in index_to_label.items()}
+	images_path = os.path.join('../data/')
+	image_files = [f for f in listdir(images_path) if isfile(join(images_path, f))]
+
+	image_dict = {}
+	label_dict = {}
+
+	index = 0
+	for i in range(100, len(image_files)):
+	# for i in range(100):
+	    im = image_files[i]
+	    if 'Thumb' in im or '.DS' in im:
+	        continue
+	    if 'rar' in im:
+	        continue
+	#     print(im)
+	    label_str = im.split('_')[2].lower()
+	    image_dict[index] = im
+	    label_dict[index] = label_to_index[label_str]
+	    index += 1
+
+	return label_dict, image_dict
+
+
+
 def load_train_data():
 
 	index_to_label = {
@@ -20,7 +96,7 @@ def load_train_data():
 	label_dict = {}
 
 	index = 0
-	for i in range(len(image_files)):
+	for i in range(len(image_files)-100):
 	# for i in range(100):
 	    im = image_files[i]
 	    if 'Thumb' in im or '.DS' in im:
@@ -34,6 +110,49 @@ def load_train_data():
 	    index += 1
 
 	return label_dict, image_dict
+
+def load_test_data():
+
+	index_to_label = {
+	    0: 'rowing',
+	    1: 'badminton',
+	    2: 'polo',
+	    3: 'bocce',
+	    4: 'snowboarding',
+	    5: 'croquet',
+	    6: 'sailing',
+	    7: 'rockclimbing',
+	}
+	label_to_index = {v: k for k, v in index_to_label.items()}
+	images_path = os.path.join('../data/')
+	image_files = [f for f in listdir(images_path) if isfile(join(images_path, f))]
+
+	image_dict = {}
+	label_dict = {}
+
+	index = 0
+	for i in range(100, len(image_files)):
+	# for i in range(100):
+	    im = image_files[i]
+	    if 'Thumb' in im or '.DS' in im:
+	        continue
+	    if 'rar' in im:
+	        continue
+	#     print(im)
+	    label_str = im.split('_')[2].lower()
+	    image_dict[index] = im
+	    label_dict[index] = label_to_index[label_str]
+	    index += 1
+
+	return label_dict, image_dict
+
+
+
+
+
+
+
+
 
 class UIUC_w_Pose_Dataset(data.Dataset):
 #       '''Characterizes a dataset for PyTorch'''
